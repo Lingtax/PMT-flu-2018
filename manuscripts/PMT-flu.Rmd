@@ -157,22 +157,14 @@ We used `r cite_r("manuscripts/r-references.bib")` for all our analyses.
 ```{r regression, results='asis', warning=FALSE, message=FALSE}
 pmt_flu <-  lm(flu_int ~ flu_mrr + flu_sev + flu_sus + flu_re + flu_rc + flu_se, data = flu)
 
-regtab <-  apaTables::apa.reg.boot.table(pmt_flu)
-regtab[[3]] <- regtab[[3]] %>% 
-  mutate(Predictor = case_when(Predictor == "flu_mrr" ~ "Maladaptive Response Rewards",  
-                               Predictor == "flu_sev" ~ "Severity", 
-                               Predictor == "flu_sus" ~ "Susceptibility",  
-                               Predictor == "flu_re"  ~ "Response Efficacy",  
-                               Predictor == "flu_rc"  ~ "Response Costs",   
-                               Predictor == "flu_se"  ~ "Self Efficacy",
-                               TRUE ~ Predictor))
+out <- apa_print(pmt_flu)
 
-apa_table(regtab[[3]], caption = "Linear regression of Vaccination intention on PMT constructs.", 
-          note = gsub(pattern = "Note. ", replacement = "", regtab$table_note),
-           col.names = c("Predictor", "b", "b (95% IC)", "\\beta", "\\beta (95% CI)", 
-                         "sr^2", "sr^2 (95% CI)", "\\textit{r}", "Fit"))#,   
-          # align = "lcccccccl")#,
-          #landscape = TRUE)
+out[[4]][ , 1]  <- c("Intercept", "Maladaptive Response Rewards",  "Severity", "Susceptibility", "Response Efficacy", "Response Costs",  "Self Efficacy")
+
+names(out[[4]])[1] <-  "Predictor"
+   
+apa_table(out[[4]], caption = "Linear regression of Vaccination intention on PMT constructs.", align = "lcccc")
+
 ```
 
 
