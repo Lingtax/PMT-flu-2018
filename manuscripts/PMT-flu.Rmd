@@ -73,7 +73,7 @@ flu <- read_rds(here("data", "fludat.rds"))
 We hypothesise that intent to obtain a seasonal influenza vaccination, will have a significant positive relationships with percieved severity of and susceptibility to influenza, as well as percieved efficacy of the vaccine, and their confidence in their ability to obtain a vaccination, and negative relationships with maladaptive response rewards and percieved response costs.  
 
 # Methods
-We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) --> This 
+We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) --> 
 
 ## Participants
 
@@ -164,10 +164,15 @@ regtab[[3]] <- regtab[[3]] %>%
                                Predictor == "flu_sus" ~ "Susceptibility",  
                                Predictor == "flu_re"  ~ "Response Efficacy",  
                                Predictor == "flu_rc"  ~ "Response Costs",   
-                               Predictor == "flu_se"  ~ "Self Efficacy")) %>% 
-  rename(`b (95% IC)` = `b_95%_CI`, `\\beta` = beta, `\\beta (95% CI)` = `beta_95%_CI`, `sr^2` = sr2, `sr^2 (95% CI)` = `sr2_95%_CI`)
+                               Predictor == "flu_se"  ~ "Self Efficacy",
+                               TRUE ~ Predictor))
 
-apa_table(regtab[[3]], caption = "Linear regression of Vaccination intention on PMT constructs.", note = regtab$table_note)
+apa_table(regtab[[3]], caption = "Linear regression of Vaccination intention on PMT constructs.", 
+          note = gsub(pattern = "Note. ", replacement = "", regtab$table_note),
+           col.names = c("Predictor", "b", "b (95% IC)", "\\beta", "\\beta (95% CI)", 
+                         "sr^2", "sr^2 (95% CI)", "\\textit{r}", "Fit"))#,   
+          # align = "lcccccccl")#,
+          #landscape = TRUE)
 ```
 
 
