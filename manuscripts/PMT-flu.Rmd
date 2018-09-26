@@ -72,7 +72,7 @@ flu <- read_rds(here("data", "fludat.rds"))
 ```
 
 ## Hypotheses
-We hypothesise that intent to obtain a seasonal influenza vaccination, will have a significant positive relationships with percieved severity of and susceptibility to influenza, as well as percieved efficacy of the vaccine (response efficacy), and their confidence in their ability to obtain a vaccination (self-efficacy), and negative relationships with maladaptive response rewards and percieved response costs.  
+We hypothesise that intent to obtain a seasonal influenza vaccination, will have a significant positive relationships with perceived severity of and susceptibility to influenza, as well as perceived efficacy of the vaccine (response efficacy), and their confidence in their ability to obtain a vaccination (self-efficacy), and negative relationships with maladaptive response rewards and perceived response costs.  
 
 # Methods
 We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) --> 
@@ -80,6 +80,8 @@ We report how we determined our sample size, all data exclusions (if any), all m
 ## Participants
 
 Participants were recruited as part of a larger study in exchange for $1.10USD in Amazon credit via Amazon MTurk, participants in this study represent the control group of that sample. Sample size was determined *a priori* as part of the larger study, the preregistration of that study can be found at: [https://osf.io/nhcfv/](https://osf.io/nhcfv/). We aimed to recruit 546 participants into each condition, however randomisation into condition resulted in oversampling of some conditions. After removal of duplicate and incomplete submissions\footnote{Complete removal of data from participants with duplicate submissions was required in order to avoid contamination between conditions. Removal of incomplete submissions was required because submission of the completed survey indicated consent}, `r printnum(nrow(flu))` participants were included in this study.
+
+The demographic characteristics of the sample are shown in Table \@ref(tab:demo).
 
 ```{r demo, results='asis', warning=FALSE}
 
@@ -164,10 +166,9 @@ Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = 
 ## Data analysis
 We used `r cite_r("manuscripts/r-references.bib")` for all our analyses. 
 
-
-
-
 # Results
+
+## Descriptive statistics
 
 ```{r correlation, results='asis'}
 cor_t <- flu %>% 
@@ -189,13 +190,16 @@ cor_t <- as.data.frame(cor_t$table.body) %>%
 apa_table(filter(cor_t , Variable != " "), row.names = FALSE, caption = "Correlations between PMT variables")
 ```
 
+Pearson’s product-moment correlations were calculated to assess the relationships between PMT constructs. As shown in Table \@ref(tab:correlation), the constructs were correlated with each other as expected. Specifically, there were significant positive correlations between intention and severity, vulnerability, response efficacy, and self-efficacy. We observed negative correlations between intention and both MRR and response costs. MRR was negatively correlated with all components other than response costs.  Response cost were negatively correlated with all variables except MRR. MRR and response costs were positively correlated with each other. 
+
+## Regression analysis
 
 ```{r regression, results='asis', warning=FALSE, message=FALSE}
 pmt_flu <-  lm(flu_int ~ flu_mrr + flu_sev + flu_sus + flu_re + flu_rc + flu_se, data = flu)
 
-pmt <- apa_print(pmt_flu)
+pmt_output <- apa_print(pmt_flu)
 
-pmt$table <- as.tbl(pmt$table) %>% 
+pmt_output$table <- as.tbl(pmt_output$table) %>% 
   mutate(
     predictor = as.character(predictor),
     predictor = case_when(predictor == "Flu mrr" ~ "Maladaptive Response Rewards",  
@@ -209,10 +213,11 @@ pmt$table <- as.tbl(pmt$table) %>%
   select(Predictor = predictor, `$\\beta$`, estimate, ci, statistic, p.value)
 
 
-apa_table(pmt$table, escape = FALSE, note = pmt$full_result$modelfit$r2, caption = "Linear regression of vaccination intention on PMT constructs.", align = "lccccc")
+apa_table(pmt_output$table, escape = FALSE, note = pmt_output$full_result$modelfit$r2, caption = "Linear regression of vaccination intention on PMT constructs.", align = "lccccc")
 
 ```
 
+Multiple linear regression was conducted to examine the relationship between intention and PMT variables in combination. The overall model was significant (`r pmt_output$full_result$modelfit$r2`). As shown in \@ref(tab:regression), MRR, Severity, Susceptibility, Response Efficacy and Self-Efficacy were all unique predictors of intention. Response Efficacy was the strongest predictor of intention to vaccinate. 
 
 # Discussion
 
