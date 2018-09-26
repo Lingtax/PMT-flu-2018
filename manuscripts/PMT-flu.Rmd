@@ -1,0 +1,234 @@
+---
+title             : "Protection Motivation Theory Seasonal Influenza Vaccine"
+shorttitle        : "PMT - Flu vax"
+
+author: 
+  - name          : "Mathew Ling"
+    affiliation   : "1"
+    corresponding : yes    
+    address       : "Deakin University Locked Bag 20000"
+    email         : "m.ling@deakin.edu.au"
+  - name          : "Emily J. Kothe"
+    affiliation   : "1"
+  - name          : "Barbara A. Mullan"
+    affiliation   : "2"  
+
+affiliation:
+  - id            : "1"
+    institution   : "Deakin University, Geelong, Australia, Misinformation Lab, School of Psychology"
+  - id            : "2"
+    institution   : "Health Psychology and Behavioural Medicine Research Group, School of Psychology and Speech Pathology, Curtin University, Perth, Australia"
+
+
+author_note: |
+  
+  Mathew Ling, Misinformation Lab, School of Psychology, Deakin University, Australia; Emily J. Kothe, Misinformation Lab, School of Psychology, Deakin University, Australia; Barbara A. Mullan, Health Psychology and Behavioural Medicine Research Group, School of Psychology and Speech Pathology, Curtin University, Perth, Australia.
+  
+  This research was supported in part by the Deakin University's Health ResAarch Capacity Building Grant ScHeme (HAtCH).  
+
+abstract: |
+  Enter abstract here. Each new line herein must be indented, like this line.
+  
+keywords          : "Protection Motivation Theory, Immunisation, Seasonal Influenza"
+wordcount         : "X"
+
+bibliography      : ["../manuscripts/r-references.bib", "../manuscripts/refs.bib"]
+
+figsintext        : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+lineno            : no
+mask              : no
+
+class             : "man"
+output            : papaja::apa6_pdf
+
+header-includes:
+  - \raggedbottom
+---
+
+```{r load_packages, include = FALSE}
+library("papaja")
+library(knitr)
+library(readr)
+library(dplyr)
+library(broom)
+library(here)
+library(ggplot2)
+library(labelled)
+library(tableone)
+```
+
+```{r setglobal, cache = FALSE, include = TRUE}
+
+opts_knit$set(root.dir = "..")
+
+options(knitr.kable.NA = '')
+```
+
+```{r}
+flu <- read_rds(here("data", "fludat.rds"))
+```
+
+## Hypotheses
+We hypothesise that intent to obtain a seasonal influenza vaccination, will have a significant positive relationships with percieved severity of and susceptibility to influenza, as well as percieved efficacy of the vaccine (response efficacy), and their confidence in their ability to obtain a vaccination (self-efficacy), and negative relationships with maladaptive response rewards and percieved response costs.  
+
+# Methods
+We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) --> 
+
+## Participants
+
+Participants were recruited as part of a larger study in exchange for $1.10USD in Amazon credit via Amazon MTurk, participants in this study represent the control group of that sample. Sample size was determined *a priori* as part of the larger study, the preregistration of that study can be found at: [https://osf.io/nhcfv/](https://osf.io/nhcfv/). We aimed to recruit 546 participants into each condition, however randomisation into condition resulted in oversampling of some conditions. After removal of duplicate and incomplete submissions\footnote{Complete removal of data from participants with duplicate submissions was required in order to avoid contamination between conditions. Removal of incomplete submissions was required because submission of the completed survey indicated consent}, `r printnum(nrow(flu))` participants were included in this study.
+
+```{r demo, results='asis', warning=FALSE}
+
+flu <- flu %>% 
+  set_variable_labels(
+    age = "Age in years",
+    education = "Highest level of education",
+    gender = "Gender",
+    household_income = "Annual household income", 
+    ideology_general = "Ideology - General", 
+    ideology_economic = "Ideology - Economic",
+    ideology_social = "Ideology - Social")
+
+tab <- CreateTableOne(vars = c("age", 
+                             "education",
+                             "gender",
+                             "household_income", 
+                             "ideology_general", 
+                             "ideology_economic", 
+                             "ideology_social"), 
+                    data = flu, test = FALSE)
+
+tab <- print(tab, varLabels = T, printToggle = FALSE)
+
+papaja::apa_table(tab, caption="Demographic characteristics of participants", longtable = TRUE, align = "lc")
+```
+
+## Material
+
+## Procedure
+
+Participants completed an online questionnaire that included all measures and the experimental manipulation for the broader study via the online survey platform Qualtrics.
+
+The first component of the questionnaire included measures of demographic variables (e.g. age, gender, household income). Participants were then randomly allocated (by Qualtrics) to one of the six intervention groups or control. The participants in this study (control group) proceeded directly to the PMT questionnaire. The order of items within the PMT questionnaire was randomised to reduce order effects. At the conclusion of the study participants were invited to provided feedback on the survey via a free-text response box.
+
+Data for this project was collected concurrently with data for a second project (described at [http://osf.io/2trbk](http://osf.io/2trbk)) in the following manner: 
+
+- A single study listing both both studies was created on Amazon MTurk
+- Interested participants read a Plain Language Statement that is relevant to both studies
+- Consenting participants were sent to a single Qualtrics survey that contained the materials for both projects
+- The randomisation feature within Qualtrics randomised participants to entry into either this project or the concurrent project
+- Participants in each study were randomised to conditions. 
+
+Data collection for the two projects were administered in this manner in order to ensure that the samples are not contaminated (i.e. do not contain the same participants) as although the projects were not intended to be analysed or reported together, their structural similarity could cause unexpected effects for participants who participated in both (e.g. by resulting in unblinding). This method of data collection and the intention to analyse and report the studies separately was documented in the pre-registration for both studies.
+
+## Measures
+
+### Demographics
+
+Participants completed a short demographic questionnaire at the beginning of the study. This included items regarding age, gender, highest level of education completed, annual household income, and political ideology. 
+
+Political ideology was measured using three ideological self-placement items. Participants were asked to indicate "When it comes to ... would you consider yourself" with reference to "politics in general", "economic issues" and "social issues". Each item was measured on a 0-10 point scale (0 = "Very Liberal": 10 = "Very Conservative").
+
+### Intention
+
+Intention was measured as the mean of three items (1= Strongly Disagree, 5 = Strongly Agree) regarding intention to engage in the referent behaviour "have a flu vaccination in the next flu season". Higher scores indicate greater intention to have the vaccination. 
+
+### Severity
+
+Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = Strongly Agree) with three items that indicated that the negative impact of flu is severe. The three items were averaged to create a composite score. Higher scores indicate greater perceived severity of seasonal influenza. 
+
+### Susceptibility
+
+Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = Strongly Agree) with two items that indicated that without a flu vaccination they are vulnerable to the negative impacts of seasonal influenza and one item indicating that without a flu vaccination they are not likely to get the flu. Items were reversed as appropriate and the three items were averaged to create a composite score. Higher scores indicate greater perceived susceptibility to negative impacts of influenza. 
+
+### Maladaptive Response Rewards
+
+Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = Strongly Agree) with three items that indicated that there are benefits of not receiving a flu vaccination. The three items were averaged to create a composite score. Higher scores indicate greater perceived maladaptive response rewards.
+
+### Self-Efficacy
+
+Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = Strongly Agree) with two items that indicated that they would be capable of engaging in the referent behaviour if they wished to do so, and one item that indicated that it would be difficult for them to get a flu vaccination. Items were reversed as appropriate and the three items were averaged to create a composite score. Higher scores indicate greater self-efficacy.
+
+### Response Efficacy
+
+Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = Strongly Agree) with three items that indicated that receiving a flu vaccine would be effective in reducing vulnerability and severity of seasonal flu. The three items were averaged to create a composite score. Higher scores indicate greater perceived response efficacy.
+
+### Response Costs
+
+Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = Strongly Agree) with three items that indicated that there are costs (including non-financial costs) associated with receiving a flu vaccination. The three items were averaged to create a composite score. Higher scores indicate greater perceived response costs.
+
+## Data analysis
+We used `r cite_r("manuscripts/r-references.bib")` for all our analyses. 
+
+
+
+
+# Results
+
+```{r correlation, results='asis'}
+cor_t <- flu %>% 
+  select(flu_int, flu_mrr, flu_sev,  flu_sus, flu_re, flu_rc, flu_se) %>% 
+  apaTables::apa.cor.table()
+
+cor_t <- as.data.frame(cor_t$table.body) %>% 
+  mutate(
+    Variable = as.character(Variable),
+    Variable = case_when(Variable == "1. flu_int" ~ "1. Intention",  
+                               Variable == "2. flu_mrr" ~ "2. Maladaptive response rewards", 
+                               Variable == "3. flu_sev" ~ "3. Severity",  
+                               Variable == "4. flu_sus"  ~ "4. Susceptibility",  
+                               Variable == "5. flu_re"  ~ "5. Response Efficacy",   
+                               Variable == "6. flu_rc"  ~ "6. Response Costs",   
+                               Variable == "7. flu_se"  ~ "7. Self Efficacy",
+                               TRUE ~ Variable))
+
+apa_table(filter(cor_t , Variable != " "), row.names = FALSE, caption = "Correlations between PMT variables")
+```
+
+
+```{r regression, results='asis', warning=FALSE, message=FALSE}
+pmt_flu <-  lm(flu_int ~ flu_mrr + flu_sev + flu_sus + flu_re + flu_rc + flu_se, data = flu)
+
+pmt <- apa_print(pmt_flu)
+
+pmt$table <- as.tbl(pmt$table) %>% 
+  mutate(
+    predictor = as.character(predictor),
+    predictor = case_when(predictor == "Flu mrr" ~ "Maladaptive Response Rewards",  
+                               predictor == "Flu sev" ~ "Severity", 
+                               predictor == "Flu sus" ~ "Susceptibility",  
+                               predictor == "Flu re"  ~ "Response Efficacy",  
+                               predictor == "Flu rc"  ~ "Response Costs",   
+                               predictor == "Flu se"  ~ "Self Efficacy",
+                               TRUE ~ predictor),
+    `$\\beta$` = lm.beta::lm.beta(pmt_flu)$standardized.coefficients) %>% 
+  select(Predictor = predictor, `$\\beta$`, estimate, ci, statistic, p.value)
+
+
+apa_table(pmt$table, escape = FALSE, note = pmt$full_result$modelfit$r2, caption = "Linear regression of vaccination intention on PMT constructs.", align = "lccccc")
+
+```
+
+
+# Discussion
+
+
+
+
+\newpage
+
+# References
+```{r create_r-references}
+r_refs(file = "r-references.bib")
+```
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id = "refs"></div>
+\endgroup
