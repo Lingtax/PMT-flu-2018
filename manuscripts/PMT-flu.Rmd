@@ -154,16 +154,38 @@ We used `r cite_r("manuscripts/r-references.bib")` for all our analyses.
 
 # Results
 
+```{r correlation, results='asis'}
+cor_t <- flu %>% 
+  select(flu_int, flu_mrr, flu_sev,  flu_sus, flu_re, flu_rc, flu_se) %>% 
+  apaTables::apa.cor.table()
+
+# Edit the variable names 
+
+cor_t <- as.data.frame(cor_t$table.body)
+apa_table(filter(cor_t , Variable != " "), row.names = FALSE, caption = "Correlations between PMT variables")
+```
+
+
 ```{r regression, results='asis', warning=FALSE, message=FALSE}
 pmt_flu <-  lm(flu_int ~ flu_mrr + flu_sev + flu_sus + flu_re + flu_rc + flu_se, data = flu)
 
-out <- apa_print(pmt_flu)
+pmt <- apa_print(pmt_flu)
 
-out[[4]][ , 1]  <- c("Intercept", "Maladaptive Response Rewards",  "Severity", "Susceptibility", "Response Efficacy", "Response Costs",  "Self Efficacy")
+pmt$table <- as.tbl(pmt$table) %>% 
+  mutate(
+    predictor = as.character(predictor),
+    predictor = case_when(predictor == "Flu mrr" ~ "Maladaptive Response Rewards",  
+                               predictor == "Flu sev" ~ "Severity", 
+                               predictor == "Flu sus" ~ "Susceptibility",  
+                               predictor == "Flu re"  ~ "Response Efficacy",  
+                               predictor == "Flu rc"  ~ "Response Costs",   
+                               predictor == "Flu se"  ~ "Self Efficacy",
+                               TRUE ~ predictor),
+    `$\\beta$` = lm.beta::lm.beta(pmt_flu)$standardized.coefficients) %>% 
+  select(Predictor = predictor, `$\\beta$`, estimate, ci, statistic, p.value)
 
-names(out[[4]])[1] <-  "Predictor"
-   
-apa_table(out[[4]], caption = "Linear regression of Vaccination intention on PMT constructs.", align = "lcccc")
+
+apa_table(pmt$table, escape = FALSE, note = pmt$full_result$modelfit$r2, caption = "Linear regression of vaccination intention on PMT constructs.", align = "lccccc")
 
 ```
 
