@@ -221,8 +221,18 @@ Multiple linear regression was conducted to examine the relationship between int
 
 # Discussion
 
+In this study, we examined whether Protection Motivation Theory constructs predict intention to receive the seasonal influenza vaccination. Importantly, this is the first study to investigate all six of the major PMT constructs (MRR, severity, susceptibility, response efficacy, self-efficacy, and response costs) in the context of influenza vaccination. 
+
+<!--- We hypothesise that intent to obtain a seasonal influenza vaccination, will have a significant positive relationships with perceived severity of and susceptibility to influenza, as well as perceived efficacy of the vaccine (response efficacy), and their confidence in their ability to obtain a vaccination (self-efficacy), and negative relationships with maladaptive response rewards and perceived response costs.  --->
+
+MRR had a negative relationship with intention have a flu vaccination when controlling for the effect of other PMT constructs. This is consistent with PMT and with the limited previous research that found that intentions are negatively associated with MRR (Floyd et al., 2000). This is the first study to apply MRR to influenza vaccination, as such these findings suggest that previous researchers may have underestimated the value of PMT in understanding flu vaccination by failing to measure this construct. 
+
+Previous studies have found that perceived high response costs, such as thinking that vaccination can cause flu (Weinstein et al., 2007), feeling concerned about the side effects of vaccination (Contal et al., 2016; Falato et al., 2011) and challenges associated with finding the time to get vaccinated (Contal et al., 2016), were negatively correlated with flu vaccination behaviour (Weinstein et al., 2007). However, response costs were not associated with intention to vaccinate within this sample. 
+
+<!--- Perhaps because of conceptual overlap between MRR and RC? Some researchers have argued against including both because they are too similar... That said, while they are correlated (r=0.49) the relationship between RC and SE is actually stronger (r=-0.61). See this from Kate "For example, in the current study, MRR and response costs were found to have the highest correlation out of all the threat appraisal and coping appraisal variables and this is consistent with broader literature on PMT model and health threats which has found there to be significant overlap between response costs and MRR (Bennett et al., 1998; Bish, Yardley, Nicoll, & Michie, 2011)."--->
 
 
+This study provides novel insights into the role of PMT constructs in intention to receive a flu vaccination. By assessing all the components of the PMT model the study provides novel data on which beliefs are the most important for predicting flu vaccination behaviour which is critical information for the development of effective interventions. Previous studies have only looked at correlations between various components of the PMT model rather than assessing the unique contribution of all components which has limited the conclusions that can be drawn about which beliefs are the strongest predictors of adaptive intention. As illustrated by this study it is critical that studies look at all the relationships of the PMT variables together as simple correlations analysis as undertaken in much of the research in this area may not give an accurate picture of which PMT beliefs are most critical for prediction of flu vaccination or any other health threats.
 
 \newpage
 
