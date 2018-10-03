@@ -71,6 +71,12 @@ options(knitr.kable.NA = '')
 flu <- read_rds(here("data", "fludat.rds"))
 ```
 
+Effectively matched vaccination has been estimated to reduced all cause mortality by 2% and influenza hospitalistation by 4.2% among nursing home residents [@popvicas15]
+
+Direct healthcare costs of influenza in the united states are estimated to average $3.5 billion annually [@songkai15].
+
+
+
 ## Hypotheses
 We hypothesise that intent to obtain a seasonal influenza vaccination, will have a significant positive relationships with perceived severity of and susceptibility to influenza, as well as perceived efficacy of the vaccine (response efficacy), and their confidence in their ability to obtain a vaccination (self-efficacy), and negative relationships with maladaptive response rewards and perceived response costs.  
 
