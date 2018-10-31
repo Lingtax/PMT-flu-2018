@@ -1,0 +1,15 @@
+.Rproj.user
+*.Rproj
+.Rhistory
+.RData
+.Ruserdata
+.httr-oauth
+*.aux
+*.out
+*.pdf
+*.tex
+*.txt
+*.docx
+*.html
+*.ttt
+data/

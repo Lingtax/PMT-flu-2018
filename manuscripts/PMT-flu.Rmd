@@ -28,13 +28,12 @@ author_note: |
 
 abstract: |
   Enter abstract here. Each new line herein must be indented, like this line.
-  
 keywords          : "Protection Motivation Theory, Immunisation, Seasonal Influenza"
 wordcount         : "X"
 
 bibliography      : ["../manuscripts/r-references.bib", "../manuscripts/refs.bib"]
 
-figsintext        : no
+figsintext        : yes
 figurelist        : no
 tablelist         : no
 footnotelist      : no
@@ -42,7 +41,7 @@ lineno            : no
 mask              : no
 
 class             : "man"
-output            : papaja::apa6_pdf
+output            : papaja::apa6_word
 
 header-includes:
   - \raggedbottom
@@ -55,7 +54,6 @@ library(readr)
 library(dplyr)
 library(broom)
 library(here)
-library(ggplot2)
 library(labelled)
 library(tableone)
 ```
@@ -67,9 +65,21 @@ opts_knit$set(root.dir = "..")
 options(knitr.kable.NA = '')
 ```
 
-```{r}
+```{r load_data}
 flu <- read_rds(here("data", "fludat.rds"))
 ```
+
+Seasonal influenza is a major contributor to ill health and lost productivity, with an estimated annual direct cost to healthcare of $3.5 billion in the United States alone [@yan2017us], and is a significant contributor to early mortality particularly among the elderly [@thompson2006epidemiology]. Vaccination is an effective strategy for the minimisation of related harms, with 2016-17 vaccination reducing the risk by an estimated 48% [@flannery2017], and well-matched vaccination estimated to reduce all cause mortality in nursing home residents by 2% [@popvicas15]. The CDC recommends yearly seasonal influenza vaccination for all persons aged $\geq$ 6 months who do not have contraindications [@Grohskopf_2018]. Despite this, vaccination uptake remains low, with an annual average coverage in the United States of 46.8% [@CDC2018]. This is well below the Healthy People 2020 target for 70% uptake of the seasonal influenza vaccination among non-institutionalised adults [@healthy2020].
+
+The delay or outright refusal of vaccination despite it’s availability, referred to as vaccine hesitancy [@MacDonald15], contributes to reduced coverage rate [@ernst2012implications] and as such should be a focus of interventions. Vaccine hesitancy is suggested to be driven by three processes, confidence in vaccination and the systems and processes that promote and administer them, complacency regarding the risks of vaccine preventable disease, and convenience of vaccination services to the individual [@MacDonald15]. While much of the vaccine hesitancy literature has focussed on childhood vaccinations such as MMR, pertussis and diptheria, there is some evidence that these same concerns about vaccinations do have a negative impact on influenza vaccination uptake in children [@hofstetter18], and healthcare workers [@dini18].
+
+A recent review of vaccine hesitancy in the context of influenza vaccination has particularly called for increased consideration of the role of psychological variables in understanding individual differences in vaccination uptake [@schmid2017]. The review also noted that while psychological variables are frequently examined in the context of vaccination, such research is rarely based on any formal psychological theory of health behaviour or health behaviour change. This presents a challenge to the development of effective interventions to increase uptake since theories of behaviour and behaviour change provide the basis of best-practice intervention design [@rothman2004]. Indeed, meta-analytic work indicates that theory-based interventions are more effective at increasing vaccination uptake than interventions not based on explicit theory [@stone2002].
+
+While theory-based interventions appear promising within the context of vaccination, primary research is lacking to investigate the applicability of some common theories of health behaviour and health behaviour change to uptake of seasonal influenza vaccination. One such theory is, Protection Motivation Theory [@rogers1983] is a social cognition theory developed to understand how people respond to health threats (such as seasonal influenza). According to PMT, propensity to engage in protective behaviours (such as obtaining a vaccination) in response to a threat is determined by the beliefs that people have about engaging in (or not engaging in) the desired protective behaviour and about the threatening event itself. According to the theory, intention is the most proximal predictor of behaviour. In turn, intention is determined by two parallel process, threat appraisal and coping appraisal. Threat appraisal is determined by an individual’s beliefs about the seriousness of the negative consequences of the health threat (severity),vulnerability to the negative consequences of the threatened event  (susceptibility) and benefits of the performance of the maladaptive behaviour (maladaptive response rewards). Coping appraisal is determined by an individual's beliefs about the  effectiveness of the recommended preventative behaviour in averting the occurrence of or the negative consequences of the threatened event (response efficacy), confidence in one’s ability to successfully perform the preventative behaviour (self-efficacy), and barriers to performance of the preventative behaviour (response costs). According to PMT, individuals are most motivated to engage in protective behaviour when encountered by a threatening event when they believe that lack of action poses a threat to themselves (high threat appraisal) and that performing the preventative behaviour can ameliorate that threat (high coping appraisal).
+
+A systematic review of predictors of uptake of vaccination for pandemic influenza concluded that elements of both threat appraisal and coping appraisal are associated with vaccination uptake [@bish2011]. The utility of PMT in explaining vaccination is further reflected in the substantial alignment between the PMT and the standard model of vaccine hesitancy, with confidence and convenience reflecting coping appraisal, and complacency reflecting threat appraisal. Despite this, few studies have applied PMT to seasonal influenza uptake. 
+
+Studies have demonstrated a relationship between two key components of risk appraisal, perceived susceptibility and perceived  severity, and seasonal influenza vaccination uptake [@weinstein2007; @falato2011]. However, the role of maladaptive response rewards is only rarely considered in PMT studies [@floyd2000meta] and has not been investigated in the context of seasonal influenza. The coping appraisal constructs of response costs, response efficacy, and self-efficacy have all been associated with intention to receive the seasonal influenza vaccine [@weinstein2007; @falato2011; @ernsting2011]. Importantly, no study has examined all three coping appraisal constructs from the PMT while also investigating threat appraisal constructs. Instead, studies that have used the theory in the context of seasonal influenza have tended to include only a subset of constructs from the theory. This study will be the first to examine the role of all six PMT constructs in predicting intention to receive the seasonal influenza vaccine.
 
 ## Hypotheses
 We hypothesise that intent to obtain a seasonal influenza vaccination, will have a significant positive relationships with perceived severity of and susceptibility to influenza, as well as perceived efficacy of the vaccine (response efficacy), and their confidence in their ability to obtain a vaccination (self-efficacy), and negative relationships with maladaptive response rewards and perceived response costs.  
@@ -81,9 +91,9 @@ We report how we determined our sample size, all data exclusions (if any), all m
 
 Participants were recruited as part of a larger study in exchange for $1.10USD in Amazon credit via Amazon MTurk, participants in this study represent the control group of that sample. Sample size was determined *a priori* as part of the larger study, the preregistration of that study can be found at: [https://osf.io/nhcfv/](https://osf.io/nhcfv/). We aimed to recruit 546 participants into each condition, however randomisation into condition resulted in oversampling of some conditions. After removal of duplicate and incomplete submissions\footnote{Complete removal of data from participants with duplicate submissions was required in order to avoid contamination between conditions. Removal of incomplete submissions was required because submission of the completed survey indicated consent}, `r printnum(nrow(flu))` participants were included in this study.
 
-The demographic characteristics of the sample are shown in Table \@ref(tab:demo).
+The demographic characteristics of the sample are shown in Table \@ref(tab:demographics).
 
-```{r demo, results='asis', warning=FALSE}
+```{r demographics, results='asis', warning=FALSE}
 
 flu <- flu %>% 
   set_variable_labels(
@@ -109,13 +119,13 @@ tab <- print(tab, varLabels = T, printToggle = FALSE)
 papaja::apa_table(tab, caption="Demographic characteristics of participants", longtable = TRUE, align = "lc")
 ```
 
-## Material
+## Materials
 
-## Procedure
+### Procedure
 
 Participants completed an online questionnaire that included all measures and the experimental manipulation for the broader study via the online survey platform Qualtrics.
 
-The first component of the questionnaire included measures of demographic variables (e.g. age, gender, household income). Participants were then randomly allocated (by Qualtrics) to one of the six intervention groups or control. The participants in this study (control group) proceeded directly to the PMT questionnaire. The order of items within the PMT questionnaire was randomised to reduce order effects. At the conclusion of the study participants were invited to provided feedback on the survey via a free-text response box.
+The first component of the questionnaire included measures of demographic variables (e.g. age, gender, household income). Participants were then randomly allocated (by Qualtrics) to one of the six intervention groups or control. The participants in this study (control group) proceeded directly to the PMT questionnaire. The order of items within the PMT questionnaire was randomised to reduce order effects. At the conclusion of the study participants were invited to provide feedback on the survey via a free-text response box.
 
 Data for this project was collected concurrently with data for a second project (described at [http://osf.io/2trbk](http://osf.io/2trbk)) in the following manner: 
 
@@ -145,23 +155,23 @@ Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = 
 
 ### Susceptibility
 
-Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = Strongly Agree) with two items that indicated that without a flu vaccination they are vulnerable to the negative impacts of seasonal influenza and one item indicating that without a flu vaccination they are not likely to get the flu. Items were reversed as appropriate and the three items were averaged to create a composite score. Higher scores indicate greater perceived susceptibility to negative impacts of influenza. 
+Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = Strongly Agree) with two items that indicated that without a seasonal influenza vaccination they are vulnerable to the negative impacts of seasonal influenza and one item indicating that without a seasonal influenza vaccination they are not likely to get seasonal influenza. Items were reversed as appropriate and the three items were averaged to create a composite score. Higher scores indicate greater perceived susceptibility to negative impacts of seasonal influenza. 
 
-### Maladaptive Response Rewards
+### Maladaptive response rewards
 
-Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = Strongly Agree) with three items that indicated that there are benefits of not receiving a flu vaccination. The three items were averaged to create a composite score. Higher scores indicate greater perceived maladaptive response rewards.
+Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = Strongly Agree) with three items that indicated that there are benefits of not receiving a seasonal influenza vaccination. The three items were averaged to create a composite score. Higher scores indicate greater perceived maladaptive response rewards.
 
-### Self-Efficacy
+### Self-efficacy
 
-Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = Strongly Agree) with two items that indicated that they would be capable of engaging in the referent behaviour if they wished to do so, and one item that indicated that it would be difficult for them to get a flu vaccination. Items were reversed as appropriate and the three items were averaged to create a composite score. Higher scores indicate greater self-efficacy.
+Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = Strongly Agree) with two items that indicated that they would be capable of engaging in the referent behaviour if they wished to do so, and one item that indicated that it would be difficult for them to get the seasonal influenza vaccination. Items were reversed as appropriate and the three items were averaged to create a composite score. Higher scores indicate greater self-efficacy.
 
 ### Response Efficacy
 
-Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = Strongly Agree) with three items that indicated that receiving a flu vaccine would be effective in reducing vulnerability and severity of seasonal flu. The three items were averaged to create a composite score. Higher scores indicate greater perceived response efficacy.
+Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = Strongly Agree) with three items that indicated that receiving the seasonal influenza vaccination would be effective in reducing vulnerability and severity of seasonal influenza. The three items were averaged to create a composite score. Higher scores indicate greater perceived response efficacy.
 
 ### Response Costs
 
-Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = Strongly Agree) with three items that indicated that there are costs (including non-financial costs) associated with receiving a flu vaccination. The three items were averaged to create a composite score. Higher scores indicate greater perceived response costs.
+Participants indicated rated their agreement (from 1 = Strongly Disagree to 5 = Strongly Agree) with three items that indicated that there are costs (including non-financial costs) associated with receiving the seasonal influenza vaccination. The three items were averaged to create a composite score. Higher scores indicate greater perceived response costs.
 
 ## Data analysis
 We used `r cite_r("manuscripts/r-references.bib")` for all our analyses. 
@@ -184,13 +194,13 @@ cor_t <- as.data.frame(cor_t$table.body) %>%
                                Variable == "4. flu_sus"  ~ "4. Susceptibility",  
                                Variable == "5. flu_re"  ~ "5. Response Efficacy",   
                                Variable == "6. flu_rc"  ~ "6. Response Costs",   
-                               Variable == "7. flu_se"  ~ "7. Self Efficacy",
+                               Variable == "7. flu_se"  ~ "7. Self-Efficacy",
                                TRUE ~ Variable))
 
 apa_table(filter(cor_t , Variable != " "), row.names = FALSE, caption = "Correlations between PMT variables")
 ```
 
-Pearson’s product-moment correlations were calculated to assess the relationships between PMT constructs. As shown in Table \@ref(tab:correlation), the constructs were correlated with each other as expected. Specifically, there were significant positive correlations between intention and severity, vulnerability, response efficacy, and self-efficacy. We observed negative correlations between intention and both MRR and response costs. MRR was negatively correlated with all components other than response costs.  Response cost were negatively correlated with all variables except MRR. MRR and response costs were positively correlated with each other. 
+Pearson’s product-moment correlations were calculated to assess the relationships between PMT constructs. As shown in Table \@ref(tab:correlation), the constructs were correlated with each other as expected. Specifically, there were significant positive correlations between intention and severity, vulnerability, response efficacy, and self-efficacy. We observed negative correlations between intention and both maladaptive response rewards and response costs. Maladaptive response rewards was negatively correlated with all components other than response costs.  Response cost were negatively correlated with all variables except maladaptive response rewards. Maladaptive response rewards and response costs were positively correlated with each other. 
 
 ## Regression analysis
 
@@ -217,22 +227,26 @@ apa_table(pmt_output$table, escape = FALSE, note = pmt_output$full_result$modelf
 
 ```
 
-Multiple linear regression was conducted to examine the relationship between intention and PMT variables in combination. The overall model was significant (`r pmt_output$full_result$modelfit$r2`). As shown in \@ref(tab:regression), MRR, Severity, Susceptibility, Response Efficacy and Self-Efficacy were all unique predictors of intention. Response Efficacy was the strongest predictor of intention to vaccinate. 
+
+Multiple linear regression was conducted to examine the relationship between intention and PMT variables in combination. The overall model was significant (`r pmt_output$full_result$modelfit$r2`). As shown in Table \@ref(tab:regression), maladaptive response rewards, severity, susceptibility, response efficacy and self-efficacy were all unique predictors of intention. Response efficacy was the strongest predictor of intention to vaccinate. 
 
 # Discussion
 
-In this study, we examined whether Protection Motivation Theory constructs predict intention to receive the seasonal influenza vaccination. Importantly, this is the first study to investigate all six of the major PMT constructs (MRR, severity, susceptibility, response efficacy, self-efficacy, and response costs) in the context of influenza vaccination. 
+In this study, we examined whether Protection Motivation Theory constructs predict intention to receive the seasonal influenza vaccination. Importantly, this is the first study to investigate all six of the major PMT constructs (maladaptive response rewards, severity, susceptibility, response efficacy, self-efficacy, and response costs) in the context of influenza vaccination. Correlational findings provided support for the hypotheses derived from the theory. Multiple regression analysis demonstrated that the PMT constructs account for a large proportion of the variance in intention to vaccinate and that all PMT constructs other than response costs are unique predictors of intention. The following discussion integrates these findings with previous research, considers their theoretical and practical implications, and identifies directions for future research.
 
-<!--- We hypothesise that intent to obtain a seasonal influenza vaccination, will have a significant positive relationships with perceived severity of and susceptibility to influenza, as well as perceived efficacy of the vaccine (response efficacy), and their confidence in their ability to obtain a vaccination (self-efficacy), and negative relationships with maladaptive response rewards and perceived response costs.  --->
+The current study represents the first complete test of the role of PMT constructs in predicting intention to receive a seasonal influenza vaccination. The findings build on prior research that has used the theoretical constructs in isolation or in limited combinations. The research is broadly consistent with previous research that has demonstrated a role for PMT constructs in predicting vaccination intention. 
 
-MRR had a negative relationship with intention have a flu vaccination when controlling for the effect of other PMT constructs. This is consistent with PMT and with the limited previous research that found that intentions are negatively associated with MRR (Floyd et al., 2000). This is the first study to apply MRR to influenza vaccination, as such these findings suggest that previous researchers may have underestimated the value of PMT in understanding flu vaccination by failing to measure this construct. 
+The findings that self-efficacy and response efficacy were unique predictors of intention is consistent with previous research that has applied these coping appraisal constructs to the prediction of influenza vaccination uptake [@weinstein2007; @falato2011; @ernsting2011]. This is also consistent with a larger body of research that has used these constructs to responses to pandemic influenza [@bish2011] and other vaccination behaviours [@rambout2014]. This is the first study to apply maladaptive response rewards to influenza vaccination.  Maladaptive response rewards had a negative relationship with intention have the seasonal influenza vaccination when at the bivariate level and when controlling for the effect of other PMT constructs, consistent with PMT and with the limited previous research that found that intentions are negatively associated with maladaptive response rewards [@floyd2000meta]. Overall, the greater the perceived advantages of contracting influenza, the less likely a person was to intend to vaccinate. These findings suggest that previous researchers may have underestimated the value of PMT in understanding influenza vaccination by failing to measure this construct. In addition, understanding the role of maladaptive response rewards provides a relatively novel target for PMT-based intervention to increase vaccination uptake, that is decreasing the extent to which people believe that there may be social, personal, or financial advantages to contracting influenza and/or not receiving the vaccination.
 
-Previous studies have found that perceived high response costs, such as thinking that vaccination can cause flu (Weinstein et al., 2007), feeling concerned about the side effects of vaccination (Contal et al., 2016; Falato et al., 2011) and challenges associated with finding the time to get vaccinated (Contal et al., 2016), were negatively correlated with flu vaccination behaviour (Weinstein et al., 2007). However, response costs were not associated with intention to vaccinate within this sample. 
+Previous studies have found that perceived high response costs, such as thinking that vaccination can cause influenza [@weinstein2007] and feeling concerned about the side effects of vaccination [@falato2011] were negatively correlated with influenza vaccination behaviour. Response costs were correlated with intention at the bivariate level but were not associated with intention to vaccinate when controlling for other PMT constructs. It appears that while higher perceived costs of vaccination are related to vaccination intention but are not influential once other variables are accounted for. This may reflect overlap between this construct and other constructs within the theory. Some researchers have justified excluding maladaptive response rewards from tests of PMT because of conceptual overlap between response costs and maladaptive response rewards [@grothmann2003]. In this study, the correlation between the variables was significant (r = `r round(cor(flu$flu_rc, flu$flu_mrr, use = "pairwise"),2)`). Response costs was also highly correlated self-efficacy (r = `r round(cor(flu$flu_rc, flu$flu_se, use = "pairwise"),2)`). 
 
-<!--- Perhaps because of conceptual overlap between MRR and RC? Some researchers have argued against including both because they are too similar... That said, while they are correlated (r=0.49) the relationship between RC and SE is actually stronger (r=-0.61). See this from Kate "For example, in the current study, MRR and response costs were found to have the highest correlation out of all the threat appraisal and coping appraisal variables and this is consistent with broader literature on PMT model and health threats which has found there to be significant overlap between response costs and MRR (Bennett et al., 1998; Bish, Yardley, Nicoll, & Michie, 2011)."--->
+By assessing all the components of the PMT model, the study provides novel data regarding the relative importance of PMT constructs when considered simultaneously. Since previous studies have only investigated a limited set of PMT constructs they have been limited in their ability to consider the beliefs that play the strongest role in understanding intention. It is critical that studies investigate all six PMT constructs together as simple correlation analysis or consideration of a limited set of constructs do not provide an accurate picture of which PMT beliefs are most critical for predicting intention to receive the seasonal influenza vaccination.
 
+A key limitation of this study is that due to practical constraints the current study was unable to gather data on seasonal influenza vaccination behaviour. However, previous research has found that intention to vaccinate does predict subsequent seasonal influenza vaccination uptake behaviour (Ernsting et al., 2015), and that whilst adaptive intentions do not perfectly predict behaviour there is a reliable and strong association between them across a wide range of contexts (Webb & Sheeran, 2006). It is also important to recognise that PMT suggests that the role of PMT constructs on behaviour are mediated through intention. As such, even if behaviour had been measured, a test of this part of the model would consist of a test of the relationship between intention and behaviour, rather than a test of any other PMT constructs and behaviour. As the intention-behaviour relationship has previously been established in other studies, we feel that the study still provides valuable insights into the pre-intentional components of PMT.
 
-This study provides novel insights into the role of PMT constructs in intention to receive a flu vaccination. By assessing all the components of the PMT model the study provides novel data on which beliefs are the most important for predicting flu vaccination behaviour which is critical information for the development of effective interventions. Previous studies have only looked at correlations between various components of the PMT model rather than assessing the unique contribution of all components which has limited the conclusions that can be drawn about which beliefs are the strongest predictors of adaptive intention. As illustrated by this study it is critical that studies look at all the relationships of the PMT variables together as simple correlations analysis as undertaken in much of the research in this area may not give an accurate picture of which PMT beliefs are most critical for prediction of flu vaccination or any other health threats.
+This study demonstrates the benefits of applying psychological theory to problems such as reaching target vaccination coverage, and particularly in revealing unintuitive predictors. For example, the present results particularly highlight the importance of constructs like Maladaptive Response Rewards, which was a significant predictor of intention but has tended to be ignored in both the vaccination and broader literatures. While many of the constructs contained with PMT have previously been investigated with regard to intention to receive the seasonal influenza vaccine, this is the first study to investigate all six PMT construct simultaneously. In doing so, it has provided valuable insight into the relative importance of these constructs and the extent of overlap between them within this important behavioural domain. It remains to be seen if these cross-sectional results reflect viable mechanisms for the promotion of vaccination. 
+
+Future studies should seek to manipulate PMT constructs in order to examine the extent to which changes in those constructs are causally related to change in intention to vaccinate and whether such changes can be successful in bringing about subsequent increases in vaccination uptake. There is evidence that interventions that increase risk appraisal and coping appraisal can be effective at increasing vaccination uptake [@sheeran2014]. However, interventions have often been ineffective at bringing about changes in those target constructs [@parsons2018]. This research provides novel targets that can and should be examined. 
 
 \newpage
 
@@ -247,3 +261,4 @@ r_refs(file = "r-references.bib")
 
 <div id = "refs"></div>
 \endgroup
+
