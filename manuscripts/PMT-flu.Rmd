@@ -1,6 +1,6 @@
 ---
-title             : "Protection Motivation Theory Seasonal Influenza Vaccine"
-shorttitle        : "PMT - Flu vax"
+title             : "Predicting intention to receive a seasonal influenza vaccination using Protection Motivation Theory"
+shorttitle        : "Predicting intention to receive influenza vaccination"
 
 author: 
   - name          : "Mathew Ling"
@@ -27,10 +27,10 @@ author_note: |
   This research was supported in part by the Deakin University's Health ReseArch Capacity Building Grant ScHeme (HAtCH).  
 
 abstract: |
-  Enter abstract here. Each new line herein must be indented, like this line.
+ Seasonal influenza vaccination rates are below the recommended targets, contributing to significant preventable harms. Protection Motivation Theory (PMT), a widely applied model of motivation to respond to threats, may provide some insights into strategies to increase the rate of vaccine uptake. However, previous research has omitted some of the proposed predictors of intention when applying this model to vaccination. This cross-sectional study of 547 US residents assessed the utility of the PMT in predicting intention to obtain the seasonal influenza vaccine. Results indicate that all constructs show significant bivariate correlations in the direction expected from the prior literature. However, examination of the theory within a linear regression model found that perceived costs of vaccinating (response costs) did not uniquely account for variance in intention. All other components, perceived severity of and susceptibility to influenza, the perceived benefits of not vaccinating (maladaptive response rewards), the self-efficacy to vaccinate, and the perceived efficacy of vaccinating in preventing influenza (response efficacy) were unique predictors of intention. Overall, the PMT accounted for 62% of the variance in intention to vaccinate. The study is the first to investigate influenza vaccination using all six theorised predictors of intention from the PMT. The findings highlight the importance of the simultaneous inclusion of all components of the model in assessing their potential utility as targets for intervention. Importantly, the results identify under-utilised constructs in the promotion of vaccine uptake, such as maladaptive response rewards, which should be considered targets for future intervention. 
   
-keywords          : "Protection Motivation Theory, Immunisation, Seasonal Influenza"
-wordcount         : "X"
+keywords          : "Protection Motivation Theory, Immunization, Seasonal Influenza, United States of America, Vaccination"
+
 
 bibliography      : ["../manuscripts/r-references.bib", "../manuscripts/refs.bib"]
 
