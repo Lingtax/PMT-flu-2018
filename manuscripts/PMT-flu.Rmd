@@ -46,6 +46,8 @@ output            : papaja::apa6_pdf
 
 header-includes:
   - \raggedbottom
+  - \usepackage{setspace}
+  - \doublespacing
 ---
 
 ```{r load_packages, include = FALSE}
