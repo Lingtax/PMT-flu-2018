@@ -76,7 +76,7 @@ options(knitr.kable.NA = '')
 ```{r load_data}
 flu <- read_rds(here("data", "fludat.rds"))
 ```
-Seasonal influenza is a major contributor to ill health and lost productivity, with an estimated annual direct cost to healthcare of $3.5 billion in the United States alone [@yan2017us], and is a significant contributor to early mortality particularly among the elderly [@thompson2006epidemiology]. Vaccination is an effective strategy for the minimisation of influenza related harms, with 2016-17 vaccination reducing the risk of medically attended acute respiratory illness by an estimated 48% [@flannery2017], and well-matched vaccination estimated to reduce all-cause mortality in nursing home residents by 2% [@popvicas15]. The Centers for Disease Control and Prevention (CDC) recommends yearly seasonal influenza vaccination for all persons aged $\geq$ 6 months who do not have contraindications [@Grohskopf_2018]. Despite this, vaccination uptake remains low, with an annual average coverage in the United States of 46.8% [@CDC2018]. This is well below the Healthy People 2020 target for 70% uptake of the seasonal influenza vaccination among non-institutionalised adults [@healthy2020].
+Seasonal influenza is a major contributor to ill health and lost productivity, with an estimated annual direct cost to healthcare of \$3.5 billion in the United States alone [@yan2017us], and is a significant contributor to early mortality particularly among the elderly [@thompson2006epidemiology]. Vaccination is an effective strategy for the minimisation of influenza related harms, with 2016-17 vaccination reducing the risk of medically attended acute respiratory illness by an estimated 48% [@flannery2017], and well-matched vaccination estimated to reduce all-cause mortality in nursing home residents by 2% [@popvicas15]. The Centers for Disease Control and Prevention (CDC) recommends yearly seasonal influenza vaccination for all persons aged $\geq$ 6 months who do not have contraindications [@Grohskopf_2018]. Despite this, vaccination uptake remains low, with an annual average coverage in the United States of 46.8% [@CDC2018]. This is well below the Healthy People 2020 target for 70% uptake of the seasonal influenza vaccination among non-institutionalised adults [@healthy2020].
 
 The delay or outright refusal of vaccination despite its availability, referred to as vaccine hesitancy [@MacDonald15], contributes to reduced coverage rate [@ernst2012implications] and as such should be a focus of interventions. Vaccine hesitancy is suggested to be driven by three processes, confidence in vaccination and the systems and processes that promote and administer them, complacency regarding the risks of vaccine preventable disease, and convenience of vaccination services to the individual [@MacDonald15]. While much of the vaccine hesitancy literature has focussed on childhood vaccinations such as MMR, pertussis and diphtheria, there is some evidence that these same concerns about vaccinations do have a negative impact on influenza vaccination uptake in children [@hofstetter18], and healthcare workers [@dini18].
 
@@ -150,8 +150,7 @@ Data for this project was collected concurrently with data for a second project 
 
 ### Demographics
 
-These items included questions regarding age, gender, highest level of education completed, annual household income, and political ideology. Consistent with PMT, where demographic variables are thought to influence intention and behaviour indirectly through their influence on other PMT constructs, these factors were included for the purpose of describing the sample but not included in analyses.
-
+These items included questions regarding age, gender, highest level of education completed, annual household income, and political ideology.
 
 ### Intention
 
@@ -213,8 +212,13 @@ Pearson’s product-moment correlations were calculated to assess the relationsh
 ## Regression analysis
 
 ```{r regression, results='asis', warning=FALSE, message=FALSE}
-pmt_flu <-  lm(flu_int ~ flu_mrr + flu_sev + flu_sus + flu_re + flu_rc + flu_se, data = flu)
+library(yhat)
 
+pmt_flu <-  lm(flu_int ~ flu_re + flu_sus + flu_mrr + flu_sev + flu_se + flu_rc, data = flu)
+
+pmt_out <- yhat::regr(pmt_flu)
+t <- t(pmt_out$Structure_Coefficients)
+t <- c(NA, t)
 pmt_output <- apa_print(pmt_flu)
 
 pmt_output$table <- as.tbl(pmt_output$table) %>% 
@@ -227,17 +231,25 @@ pmt_output$table <- as.tbl(pmt_output$table) %>%
                                predictor == "Flu rc"  ~ "Response Costs",   
                                predictor == "Flu se"  ~ "Self Efficacy",
                                TRUE ~ predictor),
-    `$\\beta$` = lm.beta::lm.beta(pmt_flu)$standardized.coefficients) %>% 
-  select(Predictor = predictor, `$\\beta$`, estimate, ci, statistic, p.value)
+    `$\\beta$` = lm.beta::lm.beta(pmt_flu)$standardized.coefficients, 
+    `Structure \ncoefficients` = t) %>% 
+  select(Predictor = predictor, `$\\beta$`, estimate, ci, `Structure \ncoefficients`, statistic, p.value)
 
 
-apa_table(pmt_output$table, escape = FALSE, note = pmt_output$full_result$modelfit$r2, caption = "Linear regression of vaccination intention on PMT constructs.", align = "lccccc")
+apa_table(pmt_output$table, escape = FALSE, note = paste(pmt_output$full_result$modelfit$r2, "\n \nPredictors are presented in order of strength as determined by $\\beta$ weights"), caption = "Linear regression of vaccination intention on PMT constructs.", align = "lccccc")
 
 ```
 
+```{r regressiondemo, results='asis', warning=FALSE, message=FALSE}
+pmt_flu_demo <-  lm(flu_int ~ flu_mrr + flu_sev + flu_sus + flu_re + flu_rc + flu_se + age + gender + education + household_income + ideology_general, data = flu)
+
+pmt_output <- apa_print(pmt_flu_demo)
+
+```
 
 Multiple linear regression was conducted to examine the relationship between intention and PMT variables in combination. The overall model was significant (`r pmt_output$full_result$modelfit$r2`). As shown in Table \@ref(tab:regression), maladaptive response rewards, severity, susceptibility, response efficacy and self-efficacy were all unique predictors of intention. However, response cost was not. Response efficacy was the strongest predictor of intention to vaccinate. Four participants (0.73% of total n) were excluded from the regression analysis due to missing data on variables included in model. Due to the very low rate of missingness, imputation of missing values was not considered necessary.
 
+In order to ensure that the results were robust after controlling for demographic charactertistics, a regression model with demographic measures included was also conducted. In this model, age, gender, education, household income, and ideology (general) were also included as predictors of intention. The overall model remained significant and the pattern of results for PMT constructs was unchanged (`r pmt_output$full_result$modelfit$r2`). 
 
 # Discussion
 In this study, we examined whether Protection Motivation Theory constructs predict intention to receive the seasonal influenza vaccination. Importantly, this is the first study to investigate all six of the major PMT constructs (maladaptive response rewards, severity, susceptibility, response efficacy, self-efficacy, and response costs) in the context of influenza vaccination. Correlational findings provided support for the hypotheses derived from the theory. Multiple regression analysis demonstrated that the PMT constructs account for a large proportion of the variance in intention to vaccinate and that all PMT constructs other than response costs are unique predictors of intention. The following discussion integrates these findings with previous research, considers their theoretical and practical implications, and identifies directions for future research.
@@ -245,7 +257,6 @@ In this study, we examined whether Protection Motivation Theory constructs predi
 The current study represents the first complete test of the role of PMT constructs in predicting intention to receive a seasonal influenza vaccination. The findings build on prior research that has used the theoretical constructs in isolation or in limited combinations [@weinstein2007; @falato2011; @ernsting2011]. The research is broadly consistent with previous research that has demonstrated a role for PMT constructs in predicting vaccination intention. 
 
 The findings that self-efficacy and response efficacy were unique predictors of intention is consistent with previous research that has applied these coping appraisal constructs to the prediction of influenza vaccination uptake [@weinstein2007; @falato2011; @ernsting2011]. This is also consistent with a larger body of research that has used these constructs to responses to pandemic influenza [@bish2011] and other vaccination behaviours [@rambout2014]. This is the first study to apply maladaptive response rewards to influenza vaccination.  Maladaptive response rewards had a negative relationship with intention have the seasonal influenza vaccination when at the bivariate level and when controlling for the effect of other PMT constructs, consistent with PMT and with the limited previous research that found that intentions are negatively associated with maladaptive response rewards [@floyd2000meta]. Overall, the greater the perceived advantages *not* receiving an influenza vaccination, the less likely a person was to intend to vaccinate. These findings suggest that previous researchers may have underestimated the value of PMT in understanding influenza vaccination by failing to measure this construct [@weinstein2007; @falato2011; @ernsting2011]. 
-<<<<<<< HEAD
 
 In addition, understanding the role of maladaptive response rewards provides a relatively novel target for PMT-based intervention to increase vaccination uptake, i.e. decreasing the extent to which people believe that there may be social, personal, or financial advantages to contracting influenza and/or not receiving the vaccination. However, given the paucity of existing research investigating maladaptive response rewards it is not immediately apparent how MRR based intervention messages might be designed in this context. In this study, the MRR items measured unspecified “advantages” to not receiving the vaccine, as well as specific advantages of not incurring expenses with regards to time/money and not having to worry about safety of the vaccine. These items were selected on the basis of one of the only previous studies to investigate the MRR construct with regard to vaccination behaviour [@lagoe_exploration_2013]. While some individuals might perceive other advantages to not receiving the vaccination [e.g. that having influenza provides better natural immunity to subsequent infection than receiving the vaccination, see: @mccarthy2016; @prematunge2014], the frequency and variety of these perceived advantages has not been systematically studied with regard to seasonal influenza vaccination. However, as the first study to demonstrate a relationship between this construct and intention in the context of seasonal influenza, we hope that this finding will help to inspire research that does more purposively address this question.
 
