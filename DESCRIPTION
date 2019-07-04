@@ -42,3 +42,4 @@ Depends:
     yhat
 Encoding: UTF-8
 LazyData: true
+Remotes: crsh/papaja
