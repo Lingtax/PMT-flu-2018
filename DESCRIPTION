@@ -1,0 +1,44 @@
+Type: Compendium
+Package: PREDICTING INTENTION TO RECEIVE INFLUENZA
+    VACCINATION
+Title: Manuscript for PREDICTING INTENTION TO RECEIVE INFLUENZA VACCINATION
+Version: 0.0.1
+Authors@R: 
+    c(person(given = "Mathew",
+           family = "Ling",
+           role = c("aut", "cre"),
+           email = "m.ling@deakin.edu.au",
+           comment = c(ORCID = "0000-0002-0940-2538")),
+    person(given = "Emily",
+           family = "Kothe",
+           role = c("aut"),
+           email = "emily.kothe@deakin.edu.au",
+           comment = c(ORCID = "0000-0003-1210-0554")),
+    person(given = "Barbara",
+           family = "Mullan",
+           role = c("aut"),
+           email = "barbara.mullan@curtin.edu.au",
+           comment = c(ORCID = "0000-0002-0177-8899")       
+Description: This is the research compendium for
+    "Predicting intention to receive a seasonal influenza vaccination
+    using Protection Motivation Theory" (Ling, Kothe, & Mullan, 2019)
+    https://doi.org/10.1016/j.socscimed.2019.06.002
+License: CCBY-4.0
+Depends: 
+    apaTables,
+    broom,
+    dplyr,
+    ggplot2,
+    here,
+    knitr,
+    labelled,
+    lm.beta,
+    papaja,
+    psych,
+    purrr,
+    readr,
+    rmarkdown,
+    tableone,
+    yhat
+Encoding: UTF-8
+LazyData: true
